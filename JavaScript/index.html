@@ -70,11 +70,20 @@
     key.classList.add('playing');
     audio.currentTime = 0;
     audio.play();
-    key.classList.add('playing');
+  }
+
+  function playKey(e) {
+    const key = e.target.closest('.key')
+    const keyCode = key.getAttribute('data-key')
+
+    playSound({ keyCode })
   }
 
   const keys = Array.from(document.querySelectorAll('.key'));
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  keys.forEach(key => {
+    key.addEventListener('transitionend', removeTransition)
+    key.addEventListener('click', playKey)
+  });
   window.addEventListener('keydown', playSound);
 </script>
 
